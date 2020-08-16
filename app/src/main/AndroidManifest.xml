@@ -15,28 +15,39 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name="com.officework.intune.MamDemoApplication">
-        <activity android:name=".MainActivity"></activity>
         <activity android:name=".SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name="com.microsoft.identity.client.BrowserTabActivity">
+
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
+                <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <!-- Add in your scheme/host from registered redirect URI -->
-                <data
-                    android:host="volunteer.management.system.savethechildren"
-                    android:path="/pA+J6+52oVfudcrNge8robzwAGY="
-                    android:scheme="msauth" />
+                <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="com.microsoft.aad.adal.AuthenticationActivity"
+            android:label="@string/app_loading" >
+        </activity>
+
+<!--        <activity android:name="com.microsoft.identity.client.BrowserTabActivity">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.VIEW" />-->
+
+<!--                <category android:name="android.intent.category.DEFAULT" />-->
+<!--                <category android:name="android.intent.category.BROWSABLE" />-->
+
+<!--                &lt;!&ndash; Add in your scheme/host from registered redirect URI &ndash;&gt;-->
+<!--                <data-->
+<!--                    android:host="com.officework.intune"-->
+<!--                    android:path="/IQNMWJx4MXNcrxyIDmRvBXCo2eA="-->
+<!--                    android:scheme="msauth" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
+
     </application>
 
 </manifest>

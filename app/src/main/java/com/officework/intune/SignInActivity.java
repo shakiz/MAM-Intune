@@ -9,6 +9,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import com.microsoft.aad.adal.AuthenticationContext;
 import com.microsoft.aad.adal.PromptBehavior;
@@ -29,7 +30,7 @@ public class SignInActivity extends AppCompatActivity implements AuthListener {
         setContentView(R.layout.activity_sign_in);
 
         try {
-            Log.d("SHA 1", SHA1("A0:50:88:29:FB:76:E3:DD:F4:6E:1F:9B:EA:CF:85:59:9C:63:F8:EC"));
+            Log.v("SHA 1", SHA1("A0:50:88:29:FB:76:E3:DD:F4:6E:1F:9B:EA:CF:85:59:9C:63:F8:EC"));
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {

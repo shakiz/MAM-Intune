@@ -1,0 +1,14 @@
+{
+  "client_id" : "fe9bd4a1-78a9-4f3c-959a-c3dac1b9a68f",
+  "authorization_user_agent" : "DEFAULT",
+  "redirect_uri" : "msauth://com.officework.intune/IQNMWJx4MXNcrxyIDmRvBXCo2eA%3D",
+  "authorities" : [
+    {
+      "type": "AAD",
+      "audience": {
+        "type": "AzureADandPersonalMicrosoftAccount",
+        "tenant_id": "common"
+      }
+    }
+  ]
+}
