@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MAM Intune</string>
+    <string name="sign_in">SIgn In</string>
+    <string name="sign_in_using_microsoft_account">Sign In To you Microsoft Account</string>
+    <string name="auth_success">Successfully signed in</string>
+    <string name="auth_out_success">Successfully signed out</string>
+    <string name="err_auth">Authentication error: %s</string>
 </resources>
