@@ -1,6 +1,7 @@
 package com.officework.intune;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -9,13 +10,11 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import com.microsoft.aad.adal.AuthenticationContext;
 import com.microsoft.aad.adal.PromptBehavior;
 import com.officework.intune.auth.AuthListener;
 import com.officework.intune.auth.AuthManager;
-
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -116,6 +115,13 @@ public class SignInActivity extends AppCompatActivity implements AuthListener {
     @Override
     public Context getContext() {
         return this;
+    }
+
+    @Override
+    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // Required by ADAL
+        mAuthContext.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

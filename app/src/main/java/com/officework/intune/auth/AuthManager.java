@@ -1,8 +1,3 @@
-/*
- * Copyright (c) Microsoft Corporation. All rights reserved.
- * Licensed under the MIT License.
- */
-
 package com.officework.intune.auth;
 
 import android.app.Activity;
@@ -11,10 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.widget.Toast;
-
 import androidx.annotation.Nullable;
-
 import com.microsoft.aad.adal.AuthenticationCallback;
 import com.microsoft.aad.adal.AuthenticationContext;
 import com.microsoft.aad.adal.AuthenticationResult;
@@ -30,22 +22,13 @@ import com.microsoft.intune.mam.policy.MAMUserInfo;
  */
 public final class AuthManager {
 
+    private static final String CLIENT_ID = "fe9bd4a1-78a9-4f3c-959a-c3dac1b9a68f";
+    private static final String REDIRECT_URI = "msauth://com.officework.intune/IQNMWJx4MXNcrxyIDmRvBXCo2eA%3D";
+
     /**
      * The authority that AuthenticationContexts should use. Sign in will use this URL.
      */
     public static final String AUTHORITY = "https://login.microsoftonline.com/common";
-
-    /**
-     * The AAD client ID registered in the Azure portal.
-     * This ID is unique to this application and should be replaced for yours.
-     */
-    private static final String CLIENT_ID = "fe9bd4a1-78a9-4f3c-959a-c3dac1b9a68f";
-
-    /**
-     * The AAD redirect URI configured in the Azure portal.
-     * This redirect URI needs to match what is configured when registering the app.
-     */
-    private static final String REDIRECT_URI = "msauth://com.officework.intune/IQNMWJx4MXNcrxyIDmRvBXCo2eA%3D";
 
     /**
      * The resource ID for this application.
@@ -89,7 +72,6 @@ public final class AuthManager {
     public static void signInSilent(final AuthenticationContext authContext,
                                     final AuthListener listener,
                                     final Handler handler) {
-
 
         authContext.acquireTokenSilentAsync(RESOURCE_ID, CLIENT_ID, REDIRECT_URI,
                 new AuthenticationCallback<AuthenticationResult>() {
@@ -194,9 +176,6 @@ public final class AuthManager {
     public static String getAccessTokenForMAM(final AuthenticationContext authContext,
                                               final Context context, final String upn,
                                               final String aadId, final String resourceId) {
-        if (!hasValidAuthValues(context)) {
-            return null;
-        }
 
         try {
             String token =
@@ -257,19 +236,5 @@ public final class AuthManager {
      */
     public static boolean shouldRestoreSignIn(final Bundle inState) {
         return inState.getBoolean(SAVE_IS_AUTHED);
-    }
-
-    /**
-     * Validation method to ensure the user has changed the necessary auth values.
-     *
-     * @return True if the auth values have been changed, false if otherwise.
-     */
-    private static boolean hasValidAuthValues(final Context context) {
-        if (CLIENT_ID.equals(CLIENT_ID) || REDIRECT_URI.equals(REDIRECT_URI)) {
-            Toast.makeText(context, "Please update the authentication values for your application.", Toast.LENGTH_LONG).show();
-            return false;
-        }
-
-        return true;
     }
 }
