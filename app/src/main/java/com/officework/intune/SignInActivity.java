@@ -2,6 +2,7 @@ package com.officework.intune;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -15,6 +16,8 @@ import com.microsoft.aad.adal.AuthenticationContext;
 import com.microsoft.aad.adal.PromptBehavior;
 import com.officework.intune.auth.AuthListener;
 import com.officework.intune.auth.AuthManager;
+import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
+
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -22,12 +25,14 @@ import java.security.NoSuchAlgorithmException;
 public class SignInActivity extends AppCompatActivity implements AuthListener {
     private Handler mHandler;
     private AuthenticationContext mAuthContext;
+    private SweetAlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
+        //region get sha code
         try {
             Log.v("SHA 1", SHA1("A0:50:88:29:FB:76:E3:DD:F4:6E:1F:9B:EA:CF:85:59:9C:63:F8:EC"));
         } catch (NoSuchAlgorithmException e) {
@@ -35,6 +40,7 @@ public class SignInActivity extends AppCompatActivity implements AuthListener {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+        //endregion
 
         /* If the app has already started, the user has signed in, and the activity was just restarted,
          * skip the rest of this initialization and open the main UI */
@@ -43,11 +49,12 @@ public class SignInActivity extends AppCompatActivity implements AuthListener {
             return;
         }
 
-        // Start by making a sign in window to show instead of the main view
+        // region Start by making a sign in window to show instead of the main view
         openSignInView();
+        //endregion
 
+        //region // Will make sign in attempts that are allowed to access/modify the UI (prompt)
         mAuthContext = new AuthenticationContext(this, AuthManager.AUTHORITY, true);
-        // Will make sign in attempts that are allowed to access/modify the UI (prompt)
         mHandler = new Handler(Looper.getMainLooper()) {
             @Override
             public void handleMessage(final Message msg) {
@@ -60,12 +67,42 @@ public class SignInActivity extends AppCompatActivity implements AuthListener {
                 }
             }
         };
+        //endregion
 
         /* We only need to change/set the view and sign in if this is the first time the app
          * has opened, which is when savedInstanceState is null */
         if (savedInstanceState == null) {
             AuthManager.signInSilent(mAuthContext, this, mHandler);
         }
+
+        //region with our vms like login controller code
+//        alertDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+//        alertDialog.setCancelable(false);
+//        alertDialog.setCanceledOnTouchOutside(false);
+//        alertDialog.getProgressHelper().setBarColor(Color.parseColor("#137EF0"));
+//        alertDialog.setTitleText("Login ongoing");
+//
+//        MsLoginController msLoginController = new MsLoginController(SignInActivity.this);
+//
+//
+//        findViewById(R.id.sign_in_button).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                alertDialog.show();
+//                msLoginController.login(new MsLoginController.onLogin() {
+//                    @Override
+//                    public void onResult(boolean success, String message, String email) {
+//                        alertDialog.dismiss();
+//                        if(success){
+//                            Toast.makeText(getApplicationContext(),"Login Done",Toast.LENGTH_LONG).show();
+//                        } else {
+//                            Toast.makeText(getApplicationContext(),"Login Not Done",Toast.LENGTH_LONG).show();
+//                        }
+//                    }
+//                });
+//            }
+//        });
+        //endregion
     }
 
     public String SHA1(String text) throws NoSuchAlgorithmException, UnsupportedEncodingException {
