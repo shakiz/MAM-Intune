@@ -39,20 +39,30 @@
             android:label="@string/app_loading" >
         </activity>
 
-<!--        <activity android:name="com.microsoft.identity.client.BrowserTabActivity">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.VIEW" />-->
+        <meta-data
+            android:name="com.microsoft.intune.mam.aad.Authority"
+            android:value="https://login.microsoftonline.com/common/" />
+        <meta-data
+            android:name="com.microsoft.intune.mam.aad.ClientID"
+            android:value="fe9bd4a1-78a9-4f3c-959a-c3dac1b9a68f" />
+        <meta-data
+            android:name="com.microsoft.intune.mam.aad.NonBrokerRedirectURI"
+            android:value="msauth://com.officework.intune/IQNMWJx4MXNcrxyIDmRvBXCo2eA%3D" />
 
-<!--                <category android:name="android.intent.category.DEFAULT" />-->
-<!--                <category android:name="android.intent.category.BROWSABLE" />-->
+        <activity android:name="com.microsoft.identity.client.BrowserTabActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
 
-<!--                &lt;!&ndash; Add in your scheme/host from registered redirect URI &ndash;&gt;-->
-<!--                <data-->
-<!--                    android:host="com.officework.intune"-->
-<!--                    android:path="/IQNMWJx4MXNcrxyIDmRvBXCo2eA="-->
-<!--                    android:scheme="msauth" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!-- Add in your scheme/host from registered redirect URI -->
+                <data
+                    android:host="com.officework.intune"
+                    android:path="/IQNMWJx4MXNcrxyIDmRvBXCo2eA="
+                    android:scheme="msauth" />
+            </intent-filter>
+        </activity>
 
     </application>
 

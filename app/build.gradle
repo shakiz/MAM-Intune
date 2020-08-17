@@ -52,4 +52,8 @@ intunemam {
     includeExternalLibraries = [
             "androidx.*"
     ]
+    excludeProjects = [':product:FooLib']
+    includeExternalLibraries = ['bar.jar', "com.contoso.foo:zap-artifact", "com.microsoft.*", "!com.microsoft.qux*"]
+    excludeClasses = ['com.contoso.SplashActivity']
+    excludeVariants=['savory']
 }
